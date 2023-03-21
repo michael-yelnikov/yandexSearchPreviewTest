@@ -10,7 +10,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 1,
   reporter: 'html',
   use: {
     actionTimeout: 0,
@@ -23,10 +23,10 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      //testMatch: /.*\video.ts/ // as example for filtering tests with video checking
+      // testMatch: /.*\video.ts/ // as example for filtering tests with video checking
       use: {
         ...devices['Desktop Chrome'],
-        // channel: 'chrome' // example for fixing Codecs globally 
+        channel: 'chrome', // example for fixing Codecs globally 
       },
     },
   ],

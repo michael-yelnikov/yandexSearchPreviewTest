@@ -1,24 +1,22 @@
-import { SearchVideoSteps } from "../steps/searchVideoSteps";
-import { chromium, Page, test } from "@playwright/test"
+import { test } from "../fixtures/YandexFixture"
 
-let page: Page;
-test.describe('Yandex search -> Video', () => {
+test.describe('Yandex search -> Video', async () => {
 
-    test.beforeAll(async () => { // Just for fixing Codecs locally for all tests in this file 
-        const context = await chromium.launch({ channel: 'chrome' });
-        page = await context.newPage()
-    });
-
-    test.beforeEach(async () => { // for all feature tests with video 
-        await page.goto('/video')
-    });
-
-    test('Check hover: playing video, and unhover: not playing', async () => {
-        const searchVideoSteps = new SearchVideoSteps(page)
-
-        await searchVideoSteps.makeSearchRequest('ураган')
+    test('Check hover: playing video, and unhover: not playing', async ({ searchVideoSteps }) => {
         await searchVideoSteps.checkPlayingVideoOnHover()
         await searchVideoSteps.hoverToInputField()
         await searchVideoSteps.checkVideoIsNotPlaying()
+    });
+
+    test('Check hover and playing video: by BoundingBox', async ({ searchVideoSteps }) => {
+        await searchVideoSteps.checkPlayingVideoByBoundingBox()
+    });
+
+    test('Check hover and playing video: by eval', async ({ searchVideoSteps }) => {
+        await searchVideoSteps.checkPlayingVideoByEval()
+    });
+
+    test('Check hover and playing video: by screenshot', async ({ page, searchVideoSteps }) => {
+        await searchVideoSteps.checkPLayingVideoByScreenshots()
     });
 });
