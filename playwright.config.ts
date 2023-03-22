@@ -15,7 +15,7 @@ export default defineConfig({
   use: {
     actionTimeout: 0,
     baseURL: 'https://yandex.ru',
-    headless: false,
+    headless: true,
     trace: 'on',
   },
 

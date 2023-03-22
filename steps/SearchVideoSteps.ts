@@ -90,16 +90,15 @@ export class SearchVideoSteps extends SearchSteps {
 
     async checkPLayingVideoByScreenshots() {
         await test.step('Check playing video by comparing screenshots of element', async () => {
-            const beforeScreenshot = await this.thumbnailContainer.screenshot({ path: './screenshot/before_hover.png', });
-            const img1 = await PNG.sync.read(beforeScreenshot);
+            const beforeHoverScreenshot = await this.thumbnailContainer.screenshot({ path: './screenshot/before_hover.png' });
 
             await this.hoverAndWaitingLoader();
-            await this.page.evaluate(() => { })
             await expect(this.previewPlayingContainer).toBeVisible();
 
-            const afterScreenshot = await this.thumbnailContainer.locator('.thumb-image__background') // just for using new locator
-                .screenshot({ path: './screenshot/after_hover.png', });
-            const img2 = await PNG.sync.read(afterScreenshot);
+            const afterHoverScreenshot = await this.thumbnailContainer.screenshot({ path: './screenshot/after_hover.png' });
+
+            const img1 = await PNG.sync.read(beforeHoverScreenshot);
+            const img2 = await PNG.sync.read(afterHoverScreenshot);
 
             const diff = new PNG({ width: img1.width, height: img1.height });
             const difference = pixelmatch(
