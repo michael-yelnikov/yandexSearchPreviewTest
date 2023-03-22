@@ -1,4 +1,4 @@
-import { test } from "../fixtures/YandexFixture"
+import { test } from "../fixtures/SearchVideoFixture"
 
 test.describe('Yandex search -> Video', async () => {
 
